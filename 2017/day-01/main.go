@@ -13,30 +13,36 @@ func main() {
 	if err != nil {
 		fmt.Println("file could not be open")
 	}
-	//fmt.Println(file)
+	input := file
 
-	arrayLength := len(file)
-
-	for index, value := range file {
-
-		// if we have reached max length of the input we need to make a rebound check to the start of the array if the first element is the same as the last
-		if index == (arrayLength - 1) {
-			if value == file[0] {
-				addSum(value)
-			}
-		} else if value == file[index+1] {
-			addSum(value)
-		}
-	}
-
-	fmt.Println(sum)
+	praseList(input)
 
 }
 
-func addSum(input byte) {
+func convertAddSum(input byte) {
 	i, err := strconv.Atoi(string(input))
 	if err != nil {
 		panic(err)
 	}
 	sum += int64(i)
+}
+
+// this function parses the list and checks if the current symbol + the next one is the same and if so adds to the sum variable
+func praseList(input []byte) int64 {
+
+	arrayLength := len(input)
+
+	for index, value := range input {
+
+		// if index is at max length we need to compare current and first index of list
+		if index == (arrayLength - 1) {
+			if value == input[0] {
+				convertAddSum(value)
+			}
+		} else if value == input[index+1] {
+			convertAddSum(value)
+		}
+	}
+
+	return sum
 }

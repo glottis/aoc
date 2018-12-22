@@ -1,9 +1,10 @@
 package day01
 
-import "testing"
+import (
+	"testing"
+)
 
-func Test_praseList(t *testing.T) {
-
+func TestParseList(t *testing.T) {
 	tests := []struct {
 		name  string
 		input []byte
@@ -17,7 +18,30 @@ func Test_praseList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ParseList(tt.input); got != tt.want {
-				t.Errorf("praseList() = name %v, got %v, want %v", tt.name, got, tt.want)
+				t.Errorf("ParseList() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestParseListRedux(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		input []byte
+		want  int64
+	}{
+		{"test: 1212", []byte("1212"), 6},
+		{"test: 1221", []byte("1221"), 0},
+		{"test: 123425", []byte("123425"), 4},
+		{"test: 123123", []byte("123123"), 12},
+		{"test: 12131415", []byte("12131415"), 4},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ParseListRedux(tt.input); got != tt.want {
+				t.Errorf("ParseListRedux() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -1,6 +1,7 @@
 package day01
 
 import (
+	"math"
 	"strconv"
 )
 
@@ -27,6 +28,29 @@ func ParseList(input []byte) int64 {
 				sum += convertAddSum(value)
 			}
 		} else if value == input[index+1] {
+			sum += convertAddSum(value)
+		}
+	}
+
+	return sum
+}
+
+// ParseListRedux : this function parses the list and checks if the current symbol + (halfway around one) is the same and if so adds to the sum variable
+func ParseListRedux(input []byte) int64 {
+
+	var sum int64
+
+	arrayLength := len(input)
+	lengthDiv := arrayLength / 2
+
+	for index, value := range input {
+
+		if (index + lengthDiv) >= arrayLength {
+			corrIndex := math.Abs(float64(arrayLength - (index + lengthDiv)))
+			if value == input[int(corrIndex)] {
+				sum += convertAddSum(value)
+			}
+		} else if value == input[index+lengthDiv] {
 			sum += convertAddSum(value)
 		}
 	}

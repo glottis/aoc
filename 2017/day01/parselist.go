@@ -2,57 +2,57 @@ package day01
 
 import (
 	"math"
-	"strconv"
 )
 
-func convertAddSum(input byte) int64 {
-	i, err := strconv.Atoi(string(input))
-	if err != nil {
-		panic(err)
-	}
-	return int64(i)
-}
-
 // ParseList : this function parses the list and checks if the current symbol + the next one is the same and if so adds to the sum variable
-func ParseList(input []byte) int64 {
+func ParseList(input []byte) int {
 
-	var sum int64
+	var sum int
 
 	arrayLength := len(input)
 
 	for index, value := range input {
-
 		// if index is at max length we need to compare the current (e.g. last value) and first value of list
-		if index == (arrayLength - 1) {
-			if value == input[0] {
-				sum += convertAddSum(value)
+		if value-0x30 >= 0 && value-0x30 <= 9 {
+
+			if index == (arrayLength - 1) {
+				if value == input[0] {
+					sum += int(value - 0x30)
+				}
+			} else if value == input[index+1] {
+				sum += int(value - 0x30)
 			}
-		} else if value == input[index+1] {
-			sum += convertAddSum(value)
 		}
+
 	}
 
 	return sum
 }
 
 // ParseListRedux : this function parses the list and checks if the current symbol + (halfway around one) is the same and if so adds to the sum variable
-func ParseListRedux(input []byte) int64 {
+func ParseListRedux(input []byte) int {
 
-	var sum int64
+	var sum int
 
 	arrayLength := len(input)
 	lengthDiv := arrayLength / 2
 
 	for index, value := range input {
 
-		if (index + lengthDiv) >= arrayLength {
-			corrIndex := math.Abs(float64(arrayLength - (index + lengthDiv)))
-			if value == input[int(corrIndex)] {
-				sum += convertAddSum(value)
+		if value-0x30 >= 0 && value-0x30 <= 9 {
+
+			if (index + lengthDiv) >= arrayLength {
+
+				corrIndex := math.Abs(float64(arrayLength - (index + lengthDiv)))
+				if value == input[int(corrIndex)] {
+
+					sum += int(value - 0x30)
+				}
+			} else if value == input[index+lengthDiv] {
+				sum += int(value - 0x30)
 			}
-		} else if value == input[index+lengthDiv] {
-			sum += convertAddSum(value)
 		}
+
 	}
 
 	return sum

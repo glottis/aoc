@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math"
 )
 
@@ -59,4 +60,37 @@ func calcSteps(point int) (int, error) {
 }
 
 func main() {
+
+	m := [][]int{[]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9}}
+
+	fmt.Println(m)
+
+	for _, v := range m {
+		for _, vv := range v {
+			fmt.Printf("%v ", vv)
+		}
+		fmt.Println()
+	}
+	length := len(m) * len(m[0])
+
+	steps := 0
+
+	rightBound := len(m) - 1
+	downBound := len(m) - 1
+	leftBound := 0
+	upBound := 1
+	stepsPlay := 0
+
+	for steps < length {
+		for i := 0; i < rightBound; i++ {
+			fmt.Print(stepsPlay + 1)
+		}
+		rightBound--
+		for i := 0; i < downBound; i-- {
+			fmt.Print(stepsPlay + 1)
+		}
+		downBound--
+
+	}
+
 }
